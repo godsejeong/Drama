@@ -1,6 +1,7 @@
 package com.wark.drama;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,8 @@ import java.util.ArrayList;
 public class Adapter extends BaseAdapter {
     private LayoutInflater inflater;
     private ArrayList<Data> items = new ArrayList<Data>();
-
+    TextView text;
+    TextView sub_text;
     public Adapter(){
 
     }
@@ -47,20 +49,18 @@ public class Adapter extends BaseAdapter {
 
         Data data = items.get(i);
 
-        TextView text = (TextView) view.findViewById(R.id.main_text);
+        text = view.findViewById(R.id.main_text);
         text.setText(data.getname());
-        TextView sub_text = (TextView) view.findViewById(R.id.sub_text);
+        sub_text = view.findViewById(R.id.sub_text);
         sub_text.setText(data.getsub_name());
         return view;
     }
 
-    public void addItem(String main_name, String sub_name) {
+    public void addItem(String main_name,String sub_name) {
         Data data = new Data();
-
+        Log.e("main",main_name);
         data.setname(main_name);
         data.setsub_name(sub_name);
         items.add(data);
     }
-
-
 }
