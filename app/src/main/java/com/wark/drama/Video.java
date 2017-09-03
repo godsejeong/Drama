@@ -7,10 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 
 import java.net.URISyntaxException;
 
@@ -20,7 +18,6 @@ import java.net.URISyntaxException;
 
 public class Video extends AppCompatActivity{
     WebView webView;
-    Button button;
     String address;
     private String CurrentUrl;
     @Override
@@ -28,25 +25,17 @@ public class Video extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video);
         webView = (WebView) findViewById(R.id.video);
-        button = (Button) findViewById(R.id.btn);
-
 
         Intent intent = getIntent();
         address = intent.getStringExtra("video");
         Log.e("intent", String.valueOf(Uri.parse(address)));
         CurrentUrl = null;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent tic  = new Intent(Intent.ACTION_VIEW);
-                tic.setDataAndType(Uri.parse(address), "video/*");
-                startActivity(tic);
-//                webView.getSettings().setJavaScriptEnabled(true);
-//                webView.loadUrl(address);
-//                webView.setWebViewClient(new WebviewClientClass()); // 이걸 안해주면 새창이 뜸
-            }
-        });
+//                Intent tic  = new Intent(Intent.ACTION_VIEW);
+//                tic.setDataAndType(Uri.parse(address), "video/*");
+//                startActivity(tic);
+                webView.getSettings().setJavaScriptEnabled(true);
+                webView.loadUrl(address);
+                webView.setWebViewClient(new WebviewClientClass()); // 이걸 안해주면 새창이 뜸
     }
 
 

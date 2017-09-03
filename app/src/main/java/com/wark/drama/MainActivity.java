@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     ListView listView;
     Adapter adapter;
-    String addressdrama = "http://www.marutv.com/drama/";
+    String addressdrama = "https://qooqootv.com/category/%EB%93%9C%EB%9D%BC%EB%A7%88/";
     Document doc;
     String first_Data;
     String second_Data;
@@ -59,22 +59,23 @@ public class MainActivity extends AppCompatActivity {
         new Thread() {
             public void run() {
                 try {
-                    i=34;
-                    k=4;
+                    i=115;
+                    k=0;
                     doc = org.jsoup.Jsoup.connect(addressdrama).header("User-Agent", "Chrome/19.0.1.84.52").get();
 
-                    while(k<=72 && i <=85) {
-                        second_Data = doc.select("span").eq(k).text().trim();//드라마 업뎃 시간
+                    while(k<=25 && i <=152) {
+                        second_Data = doc.select("time").eq(k).text().trim();//드라마 업뎃 시간
                         first_Data = doc.select("a").eq(i).text().trim();//드라마 제목
                         Elements href = doc.select("a").eq(i);
+                        Log.e("asdf",first_Data);
                         for(Element element : href){
                             addressdrama =href.attr("href").trim();
                         }
                         Message mag = handler.obtainMessage();
                         handler.sendMessage(mag);
                         //adapteritemset
-                        k+=4;
-                        i+=3;
+                        k++;
+                        i+=2;
                     }
 
                     Message mag_one = adapter_handler.obtainMessage();
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                             try {
 
                                 item_doc = org.jsoup.Jsoup.connect(data.url()).header("User-Agent", "Chrome/19.0.1.84.52").get();
-                                Elements drama_data = item_doc.select("div").select("iframe").eq(1);
+                                Elements drama_data = item_doc.select("iframe").eq(0);
 
                                 for(Element element : drama_data){
                                     a = drama_data.attr("src");
