@@ -7,9 +7,15 @@ package com.wark.drama;
 public class Data {
     private String name;
     private String sub_name;
+    private String url;
 
+    public String url(){return url;}
     public String getname(){return name;}
     public String getsub_name(){return sub_name;}
+
+    public void url(String s_url){
+        url = s_url;
+    }
 
     public void setname(String s_name){
         name = s_name;

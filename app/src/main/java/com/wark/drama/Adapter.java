@@ -29,8 +29,8 @@ public class Adapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int i) {
-        return items.get(i).getname();
+    public Object getItem(int i) {
+        return items.get(i);
     }
 
     @Override
@@ -56,11 +56,14 @@ public class Adapter extends BaseAdapter {
         return view;
     }
 
-    public void addItem(String main_name,String sub_name) {
+    public void addItem(String main_name, String sub_name,String url) {
         Data data = new Data();
         Log.e("main",main_name);
         data.setname(main_name);
+        data.url(url);
         data.setsub_name(sub_name);
         items.add(data);
     }
+
+
 }
