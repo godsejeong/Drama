@@ -10,8 +10,6 @@ import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import java.net.URISyntaxException;
-
 /**
  * Created by pc on 2017-09-03.
  */
@@ -43,33 +41,6 @@ public class Video extends AppCompatActivity{
     private class WebviewClientClass extends WebViewClient{
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-            if (url != null && url.startsWith("intent://")) {
-                try {
-                    Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
-                    Intent existPackage = getPackageManager().getLaunchIntentForPackage(intent.getPackage());
-                    if (existPackage != null) {
-                        startActivity(intent);
-                    }else{
-                        Intent marketIntent = new Intent(Intent.ACTION_VIEW);
-                        marketIntent.setData(Uri.parse("market://details?id="+intent.getPackage()));
-                        startActivity(marketIntent);
-                    }
-                    return true;
-                }catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if (url != null && url.startsWith("market://")) {
-                try {
-                    Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
-                    if (intent != null) {
-                        startActivity(intent);
-                    }
-                    return true;
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
-            }
 
             if(CurrentUrl != null && url !=null && url.equals(CurrentUrl)) {
                 webView.goBack();
