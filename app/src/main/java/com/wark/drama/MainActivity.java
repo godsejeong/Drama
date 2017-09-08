@@ -65,11 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
                     while(k<=25 && i <=152) {
                         second_Data = doc.select("time").eq(k).text().trim();//드라마 업뎃 시간
-                        first_Data = doc.select("a").eq(i).text().trim();//드라마 제목
                         Elements href = doc.select("a").eq(i);
-                        Log.e("asdf",first_Data);
                         for(Element element : href){
                             addressdrama =href.attr("href").trim();
+                            first_Data = href.attr("title").trim();
                         }
                         Message mag = handler.obtainMessage();
                         handler.sendMessage(mag);
@@ -93,21 +92,6 @@ public class MainActivity extends AppCompatActivity {
             final Handler handler = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
-//                    Intent internet = new Intent(Intent.ACTION_VIEW);
-//                    internet.setData(Uri.parse(a));
-//                    internet.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    internet.setPackage(url);
-//
-//                    List<ResolveInfo> activitiesList = getPackageManager().queryIntentActivities(internet,-1);
-//                    if(activitiesList.size() > 0) {
-//                        startActivity(internet);
-//                    }else{
-//                        Intent playStoreIntent = new Intent(Intent.ACTION_VIEW);
-//                        playStoreIntent.setData(Uri.parse("market://details?id="+url));
-//                        playStoreIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(playStoreIntent);
-//                    }
-
                     Intent intent = new Intent(MainActivity.this,Video.class);
                     intent.putExtra("video",a);
                     startActivity(intent);
