@@ -35,6 +35,7 @@ public class Video extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video);
         webView = (WebView) findViewById(R.id.video);
+
         Intent intent = getIntent();
         address = intent.getStringExtra("video");
 

@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.wark.drama.Video_extration.Extration_one;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -25,9 +27,8 @@ import java.util.ArrayList;
  * Created by pc on 2017-09-07.
  */
 
-public class Video_connect extends AppCompatActivity {
+public class Video_connect extends AppCompatActivity implements View.OnClickListener{
     Button one,two,three,four,five,six,two_two;
-
     String address;
     ArrayList<String> link_item = new ArrayList<String>();
     int save_i;
@@ -45,10 +46,18 @@ public class Video_connect extends AppCompatActivity {
         six = (Button) findViewById(R.id.btn_six);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+        //<-버튼 생성
 
         Intent intent = getIntent();
         address = intent.getStringExtra("video");//받아온 값
+
+        one.setOnClickListener(this);
+        two.setOnClickListener(this);
+        two_two.setOnClickListener(this);
+        three.setOnClickListener(this);
+        four.setOnClickListener(this);
+        five.setOnClickListener(this);
+        six.setOnClickListener(this);
 
         final Handler handler = new Handler() {
             @Override
@@ -56,7 +65,6 @@ public class Video_connect extends AppCompatActivity {
                 if (!bl) {
                     two.setText("링크2");
                     two_two.setVisibility(View.GONE);//데일리모션링크가 아닐시 버튼을 지움
-
                 } else {
                     two_two.setVisibility(View.VISIBLE);
                     Log.e("사이즈", String.valueOf(link_item.size()));
@@ -70,7 +78,8 @@ public class Video_connect extends AppCompatActivity {
                         if(i+2>=5){
                             break;
                         }
-                    }
+                    }//값을 땡김
+
                     //reload_two();
                 }
                     for (int i = 0; i < link_item.size(); i++) {
@@ -157,28 +166,12 @@ public class Video_connect extends AppCompatActivity {
         }.start();
     }
 
-    public void one() {
-        one.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "값이 출력되네여 오졌구여~~", Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(this,);
-            }
-        });
-    }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        Toast.makeText(getApplication(), "saasdfsdasf", Toast.LENGTH_SHORT).show();
-        finish();
-        return super.onSupportNavigateUp();
     }
 
     @Override
@@ -190,6 +183,40 @@ public class Video_connect extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        Toast.makeText(getApplication(), "saasdfsdasf", Toast.LENGTH_SHORT).show();
+        finish();
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_one:
+                for(int i=0;i<=link_item.size();i++){
+                if(link_item.get(i).contains("https://k-vid.info/")) {
+                    Intent intent = new Intent(Video_connect.this,Extration_one.class);
+                    intent.putExtra("Video",link_item.get(i));
+                    startActivity(intent);
+                    }
+                }
+                break;
+            case R.id.btn_two:
+                break;
+            case R.id.btn_two_two:
+                break;
+            case R.id.btn_three:
+                break;
+            case R.id.btn_four:
+                break;
+            case R.id.btn_five:
+                break;
+            case R.id.btn_six:
+                break;
+        }
     }
 }
 
