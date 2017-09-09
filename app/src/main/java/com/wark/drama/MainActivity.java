@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -30,19 +32,34 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> items;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.search:
+                Toast.makeText(getApplicationContext(),"검색하기",Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         items = new ArrayList<String>();
         listView = (ListView) findViewById(R.id.listview);
         adapter = new Adapter();
+
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-//                for (int k = 1; k <= items.size(); k++){
-//                    Log.e("asdf",items.get(k));
                     adapter.addItem(first_Data,second_Data,addressdrama);
-//                }
             }
         };
 
@@ -87,40 +104,14 @@ public class MainActivity extends AppCompatActivity {
         }.start();//파싱
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            String a;
-            String url = "com.android.chrome";
-            final Handler handler = new Handler() {
-                @Override
-                public void handleMessage(Message msg) {
-                    Intent intent = new Intent(MainActivity.this,Video.class);
-                    intent.putExtra("video",a);
-                    startActivity(intent);
-                    finish();
-                }
-            };
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int position, long id) {
                 final Data data = (Data) adapter.getItem(position);
-                    new Thread(){
-                        public void run(){
-                            Document item_doc = null;
-                            try {
 
-                                item_doc = org.jsoup.Jsoup.connect(data.url()).header("User-Agent", "Chrome/19.0.1.84.52").get();
-                                Elements drama_data = item_doc.select("iframe").eq(0);
-
-                                for(Element element : drama_data){
-                                    a = drama_data.attr("src");
-                                    Log.e("asdf",a);
-                                }
-                                Message mag = handler.obtainMessage();
-                                handler.sendMessage(mag);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }.start();
+                Intent intent = new Intent(MainActivity.this,Video_connect.class);
+                intent.putExtra("video",data.url());
+                startActivity(intent);//선택한 드라마 URL넘기기
                 Log.e("addressasdf", data.url());
                 Toast.makeText(getApplicationContext(),data.getname(),Toast.LENGTH_SHORT).show();
             }

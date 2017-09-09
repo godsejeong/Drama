@@ -7,9 +7,4 @@
         android:title="검색"
         app:showAsAction="always"
         />
-    <item
-        android:title="back_ativity"
-        android:icon="@drawable/back"
-        app:showAsAction="ifRoom"
-        android:enabled=""/>
 </menu>

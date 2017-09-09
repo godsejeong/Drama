@@ -79,9 +79,6 @@ public class Video extends AppCompatActivity{
 
 
     }
-    public void json_value(final String a){
-
-    }
 
     private class WebviewClientClass extends WebViewClient {
         @Override
