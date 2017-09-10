@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this,Video_connect.class);
                 intent.putExtra("video",data.url());
+                intent.putExtra("name",data.getname());
                 startActivity(intent);//선택한 드라마 URL넘기기
                 Log.e("addressasdf", data.url());
                 Toast.makeText(getApplicationContext(),data.getname(),Toast.LENGTH_SHORT).show();

@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -21,7 +20,7 @@ import java.io.IOException;
  * Created by pc on 2017-09-09.
  */
 
-public class Extration_one extends AppCompatActivity {
+public class Extration_two extends AppCompatActivity {
     String address;
     String src, value;
     String Base;
@@ -30,6 +29,7 @@ public class Extration_one extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.load);
         Intent intent = getIntent();
         address = intent.getStringExtra("video");
@@ -40,6 +40,7 @@ public class Extration_one extends AppCompatActivity {
         String c = name.substring(0,b);
         Log.e("c",c);
         text.setText(c + "가 로딩중입니다.\n" + "잠시만 기다려주십시오...");
+
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -47,21 +48,20 @@ public class Extration_one extends AppCompatActivity {
                 setResult(RESULT_OK,getIntent());
             }
         };
-        new Thread() {
 
+        new Thread() {
             public void run() {
                 try {
                     Document doc = Jsoup.connect(address).timeout(5000).get();
-                    src = doc.select("div").select("script").html();
+                    src = doc.select("script").eq(9).html();
 
-                    String par = src.replace("jwplayer(\"myElement\").setup(", "").replace(");\n" + "\t\tjwplayer().onError(function(){\n" + "        //jwplayer().load({file:\"k-vid.mp4\", image:\"/images/change.png\"});\n" + "      \tjwplayer().stop();\n" + "    \t});", "");
-                    Log.e("src", par);
-
-                    int a = par.indexOf("window.atob") + 13;
-                    int b = par.indexOf("label") - 6;
-                    value = par.substring(a, b);
-                    Log.e("c", value);
-                    Base = new String(Base64.decode(value, Base64.DEFAULT), "UTF-8");
+                    Log.e("src",src);
+//
+//                    int a = par.indexOf("window.atob") + 13;
+//                    int b = par.indexOf("label") - 6;
+//                    value = par.substring(a, b);
+//                    Log.e("c", value);
+//                    Base = new String(Base64.decode(value, Base64.DEFAULT), "UTF-8");
                     Message mag_one = handler.obtainMessage();
                     handler.sendMessage(mag_one);
 
@@ -71,6 +71,4 @@ public class Extration_one extends AppCompatActivity {
             }
         }.start();
     }
-
 }
-

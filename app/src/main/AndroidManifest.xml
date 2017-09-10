@@ -19,5 +19,7 @@
         </activity>
         <activity android:name=".Video"/>
         <activity android:name=".Video_connect"/>
+        <activity android:name=".Video_extration.Extration_one"/>
+        <activity android:name=".Video_extration.Extration_two"/>
     </application>
 </manifest>

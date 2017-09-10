@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.wark.drama.Video_extration.Extration_one;
+import com.wark.drama.Video_extration.Extration_two;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -29,8 +30,10 @@ import java.util.ArrayList;
 
 public class Video_connect extends AppCompatActivity implements View.OnClickListener{
     Button one,two,three,four,five,six,two_two;
-    String address;
+    String address,name;
+    boolean s;
     ArrayList<String> link_item = new ArrayList<String>();
+    ArrayList<String> addresss_item = new ArrayList<String>();
     int save_i;
     boolean bl;
     @Override
@@ -50,7 +53,7 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
 
         Intent intent = getIntent();
         address = intent.getStringExtra("video");//받아온 값
-
+        name = intent.getStringExtra("name");
         one.setOnClickListener(this);
         two.setOnClickListener(this);
         two_two.setOnClickListener(this);
@@ -63,9 +66,11 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
             @Override
             public void handleMessage(Message msg) {
                 if (!bl) {
+                    s = true;
                     two.setText("링크2");
                     two_two.setVisibility(View.GONE);//데일리모션링크가 아닐시 버튼을 지움
                 } else {
+
                     two_two.setVisibility(View.VISIBLE);
                     Log.e("사이즈", String.valueOf(link_item.size()));
                     for (int i = save_i; i <link_item.size(); i++) {
@@ -164,9 +169,126 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
                 }
             }
         }.start();
+//        get_address_first();
+        get_address_second();
+//        get_address_third();
+//        get_address_fourth();
+//        get_address_fifth();
+//        get_address_sixth();
+        if(s){
+            get_address_second_second();
+        }//버튼이 생성될때만 호출
+    }
+
+    public void get_address_first(){
+        for(int i=0;i<link_item.size();i++){
+            Log.e("item", String.valueOf(link_item.get(i)));
+            if(link_item.get(i).contains("https://k-vid.info/")) {
+                Intent intent = new Intent(this, Extration_one.class);
+                intent.putExtra("video",link_item.get(i));
+                intent.putExtra("name",name);
+                startActivityForResult(intent,1);
+            }else{
+                addresss_item.add(String.valueOf(0));
+            }
+        }
+    }
+
+    public void get_address_second(){
+        for(int i=0;i<link_item.size();i++){
+            Log.e("item", String.valueOf(link_item.get(i)));
+            if(link_item.get(i).contains("https://www.dailymotion.com/")) {
+                Intent intent = new Intent(this, Extration_two.class);
+                intent.putExtra("video",link_item.get(i));
+                intent.putExtra("name",name);
+                startActivityForResult(intent,1);
+            }else{
+                addresss_item.add(String.valueOf(0));
+            }
+        }
+    }
+
+    public void get_address_third(){
+        for(int i=0;i<link_item.size();i++){
+            Log.e("item", String.valueOf(link_item.get(i)));
+            if(link_item.get(i).contains("https://k-vid.info/")) {
+                Intent intent = new Intent(this, Extration_one.class);
+                intent.putExtra("video",link_item.get(i));
+                intent.putExtra("name",name);
+                startActivityForResult(intent,1);
+            }else{
+                addresss_item.add(String.valueOf(0));
+            }
+        }
+    }
+
+    public void get_address_fourth(){
+        for(int i=0;i<link_item.size();i++){
+            Log.e("item", String.valueOf(link_item.get(i)));
+            if(link_item.get(i).contains("https://k-vid.info/")) {
+                Intent intent = new Intent(this, Extration_one.class);
+                intent.putExtra("video",link_item.get(i));
+                intent.putExtra("name",name);
+                startActivityForResult(intent,1);
+            }else{
+                addresss_item.add(String.valueOf(0));
+            }
+        }
+    }
+
+    public void get_address_fifth(){
+        for(int i=0;i<link_item.size();i++){
+            Log.e("item", String.valueOf(link_item.get(i)));
+            if(link_item.get(i).contains("https://k-vid.info/")) {
+                Intent intent = new Intent(this, Extration_one.class);
+                intent.putExtra("video",link_item.get(i));
+                intent.putExtra("name",name);
+                startActivityForResult(intent,1);
+            }else{
+                addresss_item.add(String.valueOf(0));
+            }
+        }
+    }
+
+    public void get_address_sixth(){
+        for(int i=0;i<link_item.size();i++){
+            Log.e("item", String.valueOf(link_item.get(i)));
+            if(link_item.get(i).contains("https://k-vid.info/")) {
+                Intent intent = new Intent(this, Extration_one.class);
+                intent.putExtra("video",link_item.get(i));
+                intent.putExtra("name",name);
+                startActivityForResult(intent,1);
+            }else{
+                addresss_item.add(String.valueOf(0));
+            }
+        }
+    }
+    public void get_address_second_second(){
+        for(int i=0;i<link_item.size();i++){
+            Log.e("item", String.valueOf(link_item.get(i)));
+            if(link_item.get(i).contains("https://k-vid.info/")) {
+                Intent intent = new Intent(this, Extration_one.class);
+                intent.putExtra("video",link_item.get(i));
+                intent.putExtra("name",name);
+                startActivityForResult(intent,1);
+            }else{
+                addresss_item.add(String.valueOf(0));
+            }
+        }
     }
 
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == RESULT_OK){
+            if(requestCode == 1){
+                addresss_item.add(data.getStringExtra("addressfirst"));
+                Log.e("링크",addresss_item.get(0));
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -196,15 +318,18 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_one:
-                for(int i=0;i<=link_item.size();i++){
-                if(link_item.get(i).contains("https://k-vid.info/")) {
-                    Intent intent = new Intent(Video_connect.this,Extration_one.class);
-                    intent.putExtra("Video",link_item.get(i));
-                    startActivity(intent);
-                    }
-                }
                 break;
             case R.id.btn_two:
+//                for(int i=0;i<link_item.size();i++){
+//                    if(link_item.get(i).contains("https://www.dailymotion.com/")) {
+//                        Intent intent = new Intent(this, Extration_one.class);
+//                        intent.putExtra("video",link_item.get(i));
+//                        intent.putExtra("name",name);
+//                        startActivity(intent);
+//                    }else{
+//                        Toast.makeText(getApplicationContext(),"링크가 삭제되었거나 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
+//                    }
+//                }
                 break;
             case R.id.btn_two_two:
                 break;
