@@ -57,10 +57,8 @@ public class Video extends AppCompatActivity{
                     doc = Jsoup.connect(address).timeout(5000).get();
                     src = doc.select("div").select("script").html();
 
-
                     String par = src.replace("jwplayer(\"myElement\").setup(","").replace(");\n" + "\t\tjwplayer().onError(function(){\n" + "        //jwplayer().load({file:\"k-vid.mp4\", image:\"/images/change.png\"});\n" + "      \tjwplayer().stop();\n" + "    \t});","");
                     Log.e("src",par);
-
 
                     int a = par.indexOf("window.atob") + 13;
                     int b = par.indexOf("label" ) - 6;

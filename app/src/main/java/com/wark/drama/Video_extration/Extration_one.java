@@ -1,6 +1,7 @@
 package com.wark.drama.Video_extration;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,15 +37,16 @@ public class Extration_one extends AppCompatActivity {
         name = intent.getStringExtra("name");
         text = (TextView) findViewById(R.id.load_text);
 
-        int b = name.indexOf("회")+2;
-        String c = name.substring(0,b);
-        Log.e("c",c);
-        text.setText(c + "가 로딩중입니다.\n" + "잠시만 기다려주십시오...");
+
+        text.setText(name + "가 로딩중입니다.\n" + "잠시만 기다려주십시오...");
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                getIntent().putExtra("addressfirst",Base);
-                setResult(RESULT_OK,getIntent());
+                Intent tic  = new Intent(Intent.ACTION_VIEW);
+                Log.e("src",value);
+                Uri uri = Uri.parse(Base);
+                tic.setDataAndType(uri, "video/*");
+                startActivity(tic);
             }
         };
         new Thread() {

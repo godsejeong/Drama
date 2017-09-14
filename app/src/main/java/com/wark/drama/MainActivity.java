@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listview);
         adapter = new Adapter();
 
+
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -76,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
         new Thread() {
             public void run() {
                 try {
-                    i=115;
+                    i=117;
                     k=0;
-                    doc = org.jsoup.Jsoup.connect(addressdrama).header("User-Agent", "Chrome/19.0.1.84.52").get();
+                    doc = org.jsoup.Jsoup.connect(addressdrama).timeout(10000).get();
 
-                    while(k<=25 && i <=152) {
+                    while(k<=25 && i <=156) {
                         second_Data = doc.select("time").eq(k).text().trim();//드라마 업뎃 시간
                         Elements href = doc.select("a").eq(i);
                         for(Element element : href){
