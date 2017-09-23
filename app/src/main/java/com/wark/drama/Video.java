@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -22,7 +21,7 @@ import java.io.IOException;
  * Created by pc on 2017-09-03.
  */
 
-public class Video extends AppCompatActivity{
+public class Video extends MainActivity{
     WebView webView;
     String address;
     private String CurrentUrl;
@@ -38,7 +37,6 @@ public class Video extends AppCompatActivity{
 
         Intent intent = getIntent();
         address = intent.getStringExtra("video");
-
         final Handler handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {

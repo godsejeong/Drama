@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wark.drama.Video_extration.Extration_one;
+import com.wark.drama.Video_extration.Extration_three;
 import com.wark.drama.Video_extration.Extration_two;
 
 import org.jsoup.Jsoup;
@@ -32,12 +32,11 @@ import java.util.ArrayList;
 public class Video_connect extends AppCompatActivity implements View.OnClickListener{
     Button one,two,three,four,five,six,two_two;
     String address,name;
-    boolean s;
     String result;
     TextView textView;
     ArrayList<String> link_item = new ArrayList<String>();
     int save_i;
-    boolean bl;
+    boolean bl=false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +48,6 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
         four = (Button) findViewById(R.id.btn_four);
         five = (Button) findViewById(R.id.btn_five);
         six = (Button) findViewById(R.id.btn_six);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
         //<-버튼 생성
 
         Intent intent = getIntent();
@@ -193,31 +190,56 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
                 for(int i=0;i<link_item.size();i++) {
                     Log.e("item", String.valueOf(link_item.get(i)));
                     if (link_item.get(i).contains("https://k-vid.info/")) {
+                        bl=true;
                         Intent intent = new Intent(this, Extration_one.class);
                         intent.putExtra("video", link_item.get(i));
                         intent.putExtra("name", result);
-                        startActivityForResult(intent, 1);
-                    } else {
-                    Toast.makeText(getApplicationContext(),"링크가 존재하지 않거나 삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
+                    }if(bl){
+                        Toast.makeText(getApplication(),"링크가 삭제되었거나 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
                     }
-                }
+                }//k-vid
                     break;
             case R.id.btn_two:
                 for(int i=0;i<link_item.size();i++){
                     if(link_item.get(i).contains("https://estream.to/")){
+                        bl=true;
                         Intent intent = new Intent(this, Extration_two.class);
                         intent.putExtra("video",link_item.get(i));
                         intent.putExtra("name",result);
                         startActivity(intent);
-                        break;
-                    }else{
-                        Toast.makeText(getApplicationContext(),"링크가 삭제되었거나 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
+                    }if(bl){
+                        Toast.makeText(getApplication(),"링크가 삭제되었거나 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
                     }
-                }
+                }//estream
                 break;
             case R.id.btn_three:
+                for(int i=0;i<link_item.size();i++){
+                    if(link_item.get(i).contains("https://streamango.com")){
+                        bl=true;
+                        Intent intent = new Intent(this, Extration_three.class);
+                        intent.putExtra("video",link_item.get(i));
+                        intent.putExtra("name",result);
+                        startActivity(intent);
+                    }
+                    if(bl){
+                        Toast.makeText(getApplication(),"링크가 삭제되었거나 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
+                    }
+                }//streamango
                 break;
             case R.id.btn_four:
+                for(int i=0;i<link_item.size();i++) {
+                    if (link_item.get(i).contains("https://streamango.com")) {
+                        Intent intent = new Intent(this, Extration_three.class);
+                        intent.putExtra("video", link_item.get(i));
+                        intent.putExtra("name", result);
+                        startActivity(intent);
+                        bl = true;
+                    }
+                    if (bl) {
+                        Toast.makeText(getApplication(), "링크가 삭제되었거나 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.btn_five:
                 break;
