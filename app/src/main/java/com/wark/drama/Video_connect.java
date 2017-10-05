@@ -1,21 +1,26 @@
 package com.wark.drama;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wark.drama.Video_extration.Extration_four;
 import com.wark.drama.Video_extration.Extration_one;
-import com.wark.drama.Video_extration.Extration_three;
 import com.wark.drama.Video_extration.Extration_two;
 
 import org.jsoup.Jsoup;
@@ -30,25 +35,42 @@ import java.util.ArrayList;
  */
 
 public class Video_connect extends AppCompatActivity implements View.OnClickListener{
-    Button one,two,three,four,five,six,two_two;
+    Button one,two,three,five;
     String address,name;
     String result;
     TextView textView;
+
     ArrayList<String> link_item = new ArrayList<String>();
-    int save_i;
     boolean bl=false;
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video_connect);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.connect_toolbar);
+        setSupportActionBar(toolbar);
+
+
         textView = (TextView) findViewById(R.id.connect_text);
         one = (Button) findViewById(R.id.btn_one);
         two = (Button) findViewById(R.id.btn_two);
         three = (Button) findViewById(R.id.btn_three);
-        four = (Button) findViewById(R.id.btn_four);
         five = (Button) findViewById(R.id.btn_five);
-        six = (Button) findViewById(R.id.btn_six);
         //<-버튼 생성
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기 버튼
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }//스테이터스바 투명하게 하기)
+
+        // 툴바를 스테이터스바 밑으로 가게하기
+        toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
 
         Intent intent = getIntent();
         address = intent.getStringExtra("video");//받아온 값
@@ -60,43 +82,33 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
         one.setOnClickListener(this);
         two.setOnClickListener(this);
         three.setOnClickListener(this);
-        four.setOnClickListener(this);
         five.setOnClickListener(this);
-        six.setOnClickListener(this);
 
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
 
-                    //reload_two();
 
-                for (int i = 0; i < link_item.size(); i++) {
-                        if (link_item.get(i).contains("https://www.dailymotion.com")) {
-                            link_item.set(i, String.valueOf(0));
-                        }
-                    }
-
-
-                for (int i = 0; i < link_item.size(); i++) {
-                    if(!link_item.get(0).contains("https://")){
-                        one.setVisibility(View.GONE);
-                    }
-                    if(!link_item.get(1).contains("https://")){
-                        two.setVisibility(View.GONE);
-                    }
-                    if(!link_item.get(2).contains("https://")){
-                        three.setVisibility(View.GONE);
-                    }
-                    if(!link_item.get(3).contains("https://")){
-                        four.setVisibility(View.GONE);
-                    }
-                    if(!link_item.get(4).contains("https://")){
-                        five.setVisibility(View.GONE);
-                    }
-                    if(!link_item.get(5).contains("https://")){
-                        six.setVisibility(View.GONE);
-                    }
-                }
+//                for (int i = 0; i < link_item.size(); i++) {
+//                    if(!link_item.get(0).contains("https://")){
+//                        one.setVisibility(View.GONE);
+//                    }
+//                    if(!link_item.get(1).contains("https://")){
+//                        two.setVisibility(View.GONE);
+//                    }
+//                    if(!link_item.get(2).contains("https://")){
+//                        three.setVisibility(View.GONE);
+//                    }
+//                    if(!link_item.get(3).contains("https://")){
+//                        four.setVisibility(View.GONE);
+//                    }
+//                    if(!link_item.get(4).contains("https://")){
+//                        five.setVisibility(View.GONE);
+//                    }
+//                    if(!link_item.get(5).contains("https://")){
+//                        six.setVisibility(View.GONE);
+//                    }
+//                }
             }
         };
 
@@ -130,7 +142,7 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
                     link_item.add(drama_six.attr("src"));
                     //6 링크등록
 
-                    Log.e("tset", String.valueOf(link_item.get(2).contains("https://")));
+
                     for (int i = 0; i < link_item.size(); i++) {
                         if(link_item.get(i).contains("https://")) {
                             Log.e("result", link_item.get(i));
@@ -147,19 +159,8 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
                 }
             }
         }.start();
-//        get_address_first();
-//        get_address_second();
-//        get_address_third();
-//        get_address_fourth();
-//        get_address_fifth();
-//        get_address_sixth();
-//        if(s){
-//            get_address_second_second();
-//        }//버튼이 생성될때만 호출
-    }
-
-
-    @Override
+//버튼이 생성될때만 호출
+    }    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
@@ -171,6 +172,10 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
         switch (id) {
             case R.id.search:
                 Toast.makeText(getApplicationContext(), "검색하기", Toast.LENGTH_SHORT).show();
+
+                return true;
+            case R.id.home:
+                onSupportNavigateUp();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -183,69 +188,126 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
         return super.onSupportNavigateUp();
     }
 
+
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_one:
-                for(int i=0;i<link_item.size();i++) {
+                for (int i = 0; i < link_item.size(); i++) {
                     Log.e("item", String.valueOf(link_item.get(i)));
                     if (link_item.get(i).contains("https://k-vid.info/")) {
-                        bl=true;
-                        Intent intent = new Intent(this, Extration_one.class);
-                        intent.putExtra("video", link_item.get(i));
-                        intent.putExtra("name", result);
-                        startActivity(intent);
-                    }if(bl){
-                        Toast.makeText(getApplication(),"링크가 삭제되었거나 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
-                    }
-                }//k-vid
-                    break;
-            case R.id.btn_two:
-                for(int i=0;i<link_item.size();i++){
-                    if(link_item.get(i).contains("https://estream.to/")){
-                        bl=true;
-                        Intent intent = new Intent(this, Extration_two.class);
-                        intent.putExtra("video",link_item.get(i));
-                        intent.putExtra("name",result);
-                        startActivity(intent);
-                    }if(bl){
-                        Toast.makeText(getApplication(),"링크가 삭제되었거나 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
-                    }
-                }//estream
-                break;
-            case R.id.btn_three:
-                for(int i=0;i<link_item.size();i++){
-                    if(link_item.get(i).contains("https://streamango.com")){
-                        bl=true;
-                        Intent intent = new Intent(this, Extration_three.class);
-                        intent.putExtra("video",link_item.get(i));
-                        intent.putExtra("name",result);
-                        startActivity(intent);
-                    }
-                    if(bl){
-                        Toast.makeText(getApplication(),"링크가 삭제되었거나 존재하지 않습니다.",Toast.LENGTH_SHORT).show();
-                    }
-                }//streamango
-                break;
-            case R.id.btn_four:
-                for(int i=0;i<link_item.size();i++) {
-                    if (link_item.get(i).contains("https://streamango.com")) {
-                        Intent intent = new Intent(this, Extration_three.class);
-                        intent.putExtra("video", link_item.get(i));
-                        intent.putExtra("name", result);
-                        startActivity(intent);
                         bl = true;
-                    }
-                    if (bl) {
-                        Toast.makeText(getApplication(), "링크가 삭제되었거나 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                        Extration_one one = new Extration_one(link_item.get(i));
+                        one.start();//쓰레드 시작
+                        try {
+                            one.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }//쓰레드에 들어간다
+
+                        Log.e("data", one.getResult());//그 속에서 지정한 값을 return받음
+
+                        video_start(one.getResult());
+                        break;
                     }
                 }
+                if (!bl) {
+                    Toast.makeText(getApplication(), "링크가 삭제되었거나 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                }//k-vid
+                bl = false;
                 break;
+            case R.id.btn_two:
+                for (int i = 0; i < link_item.size(); i++) {
+                    if (link_item.get(i).contains("https://estream.to/")) {
+                        bl = true;
+                        Extration_two two = new Extration_two(link_item.get(i));
+                        two.start();//쓰레드 시작
+                        try {
+                            two.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }//쓰레드에 들어간다
+
+                        Log.e("data", two.getResult());//그 속에서 지정한 값을 return받음
+
+                        video_start(two.getResult());
+                        break;
+
+                    }
+                }
+                if (!bl) {
+                    Toast.makeText(getApplication(), "링크가 삭제되었거나 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                }//estream
+                bl = false;
+                break;
+            case R.id.btn_three:
+                //arraylist가 로드되기 까지 기다려준다 //로딩창 셋팅ㄱㄱ
+                for (int i = 0; i < link_item.size(); i++) {
+                    if (link_item.get(i).contains("dailymotion")) {
+                        bl = true;
+                        Log.e("12345667", "데일리모션링크가 존재합니다.");
+                        Log.e("link_i", String.valueOf(i));
+                        Intent intent = new Intent(this, Popup.class);
+                        intent.putExtra("video", link_item.get(i));
+
+                        if (link_item.get(i + 1).contains("https://www.dailymotion.com/")) {
+                            intent.putExtra("video_two", link_item.get(i + 1));
+                            Log.e("1번들어감", "1번들어감");
+                        } else {
+                            intent.putExtra("video_two", "0");
+                            Log.e("2번들어감", "2번들어감");
+                        }
+
+                        startActivity(intent);
+                        break;
+                    }
+                }
+
+                if (!bl) {
+                    Toast.makeText(getApplication(), "링크가 삭제되었거나 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                }//dailymotion
+                bl = false;
+                break;
+
             case R.id.btn_five:
-                break;
-            case R.id.btn_six:
+                for (int i = 0; i < link_item.size(); i++) {
+                    if (link_item.get(i).contains("ggvid.net")) {
+                        bl = true;
+                        Extration_four four = new Extration_four(link_item.get(i));
+                        four.start();//쓰레드 시작
+                        try {
+                            four.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }//쓰레드에 들어간다
+
+                        Log.e("data", four.getResult());//그 속에서 지정한 값을 return받음
+
+                        video_start(four.getResult());
+                        break;
+                    }
+                }
+                if (!bl) {
+                    Toast.makeText(getApplication(), "링크가 삭제되었거나 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                }//ggvid
+                bl = false;
                 break;
         }
+    }
+    public void video_start(String video){
+        Intent tic  = new Intent(Intent.ACTION_VIEW);
+        tic.setDataAndType(Uri.parse(video),"video/*");
+        startActivity(tic);
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 }
 

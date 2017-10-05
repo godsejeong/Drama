@@ -77,13 +77,14 @@ public class MainActivity extends AppCompatActivity {
         new Thread() {
             public void run() {
                 try {
-                    i=119;
+                    i=0;
+                    //i=121;
                     k=0;
-                    doc = org.jsoup.Jsoup.connect(addressdrama).timeout(10000).get();
+                    doc = org.jsoup.Jsoup.connect(addressdrama).timeout(5000).get();
 
-                    while(k<=25 && i <=158) {
+                    while(k<=20 && i <20) {
                         second_Data = doc.select("time").eq(k).text().trim();//드라마 업뎃 시간
-                        Elements href = doc.select("a").eq(i);
+                        Elements href = doc.select("div").select("h3").select("a").eq(i);
                         for(Element element : href){
                             addressdrama =href.attr("href").trim();
                             first_Data = href.attr("title").trim();
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         handler.sendMessage(mag);
                         //adapteritemset
                         k++;
-                        i+=2;
+                        i++;
                     }
 
                     Message mag_one = adapter_handler.obtainMessage();
