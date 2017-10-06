@@ -7,9 +7,7 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-/**
- * Created by pc on 2017-09-26.
- */
+
 
 public class Extration_four extends Thread{
     String address;

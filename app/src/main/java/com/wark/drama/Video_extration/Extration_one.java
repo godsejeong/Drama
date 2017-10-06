@@ -9,9 +9,7 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-/**
- * Created by pc on 2017-09-09.
- */
+
 
 public class Extration_one extends Thread{
     String address;

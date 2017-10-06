@@ -13,9 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-/**
- * Created by pc on 2017-09-30.
- */
+
 
 public class Popup extends Activity {
     Button button;

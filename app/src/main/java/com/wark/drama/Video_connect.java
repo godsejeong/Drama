@@ -1,6 +1,7 @@
 package com.wark.drama;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,16 +32,16 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * Created by pc on 2017-09-07.
- */
+
 
 public class Video_connect extends AppCompatActivity implements View.OnClickListener{
     Button one,two,three,five;
     String address,name;
     String result;
     TextView textView;
-
+    ImageView image;
+    String image_data;
+    Drawable img_drawable;
     ArrayList<String> link_item = new ArrayList<String>();
     boolean bl=false;
 
@@ -53,14 +55,13 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
         Toolbar toolbar = (Toolbar) findViewById(R.id.connect_toolbar);
         setSupportActionBar(toolbar);
 
-
+        image = (ImageView) findViewById(R.id.image);
         textView = (TextView) findViewById(R.id.connect_text);
         one = (Button) findViewById(R.id.btn_one);
         two = (Button) findViewById(R.id.btn_two);
         three = (Button) findViewById(R.id.btn_three);
         five = (Button) findViewById(R.id.btn_five);
         //<-버튼 생성
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//뒤로가기 버튼
 
@@ -75,7 +76,7 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         address = intent.getStringExtra("video");//받아온 값
         name = intent.getStringExtra("name");
-
+        image_data = intent.getStringExtra("image");
         int b = name.indexOf("회")+2;
         result = name.substring(0,b);
         textView.setText(result);
@@ -83,6 +84,18 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
         two.setOnClickListener(this);
         three.setOnClickListener(this);
         five.setOnClickListener(this);
+
+
+
+        Image_load img_load = new Image_load(image_data);
+        img_load.start();//쓰레드 시작
+        try {
+            img_load.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        img_drawable = img_load.getResult();
+        image.setImageDrawable(img_drawable);
 
         final Handler handler = new Handler() {
             @Override

@@ -7,9 +7,7 @@ import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-/**
- * Created by pc on 2017-09-03.
- */
+
 
 public class Video extends MainActivity{
     WebView webView;

@@ -31,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
     Document doc;
     String first_Data;
     String second_Data;
+    String img_pasing;
     int k;
     int i;
-    int asdfasdfasdf;
     ArrayList<String> items;
-
+    String image;
+    Boolean img_bl =true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                    adapter.addItem(first_Data,second_Data,addressdrama);
+                    adapter.addItem(first_Data,second_Data,addressdrama,image);
             }
         };
 
@@ -85,10 +86,40 @@ public class MainActivity extends AppCompatActivity {
                     while(k<=20 && i <20) {
                         second_Data = doc.select("time").eq(k).text().trim();//드라마 업뎃 시간
                         Elements href = doc.select("div").select("h3").select("a").eq(i);
+                        Elements img = doc.select("img.entry-thumb").eq(i);
                         for(Element element : href){
                             addressdrama =href.attr("href").trim();
                             first_Data = href.attr("title").trim();
+                          }
+
+                        for(Element element : img){
+                            img_pasing = img.attr("srcset").trim();
+
                         }
+
+                        if(img_pasing.contains("https")){
+
+                        }else {
+                            img_bl=false;
+                        }
+
+                        Log.e("img_pasing",img_pasing);
+                        if(img_bl) {
+                            int data_a = img_pasing.indexOf("480w") + 4;
+                            String img_string = img_pasing.substring(data_a - 80, data_a);
+                            int data_b = img_string.indexOf("https");
+                            int data_c = img_string.indexOf("480w");
+                            image = img_string.substring(data_b,data_c);
+                        }else{
+                            image = "https://qooqootv.com/wp-content/themes/Newspaper/images/no-thumb/td_100x70.png";
+                        }
+                            Log.e("image",image);
+//                        int image_a = image.indexOf("300")+3;
+//                        int image_b = image.indexOf("480")+4;
+//                        drama_image = image.substring(image_b,image_a);
+                      //  Log.e("drama_image",drama_image);
+
+
                         Message mag = handler.obtainMessage();
                         handler.sendMessage(mag);
                         //adapteritemset
@@ -115,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this,Video_connect.class);
                 intent.putExtra("video",data.url());
                 intent.putExtra("name",data.getname());
+                intent.putExtra("image",data.image());
                 startActivity(intent);//선택한 드라마 URL넘기기
                 Log.e("addressasdf", data.url());
                 Toast.makeText(getApplicationContext(),data.getname(),Toast.LENGTH_SHORT).show();

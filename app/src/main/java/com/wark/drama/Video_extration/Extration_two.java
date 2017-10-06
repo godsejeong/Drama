@@ -9,9 +9,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
-/**
- * Created by pc on 2017-09-09.
- */
+
 
 public class Extration_two extends Thread {
     String address;

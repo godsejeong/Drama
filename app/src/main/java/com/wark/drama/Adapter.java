@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by pc on 2017-08-31.
- */
+
 
 public class Adapter extends BaseAdapter {
     private LayoutInflater inflater;
@@ -48,7 +46,6 @@ public class Adapter extends BaseAdapter {
         }
 
         Data data = items.get(i);
-
         text = view.findViewById(R.id.main_text);
         text.setText(data.getname());
         sub_text = view.findViewById(R.id.sub_text);
@@ -56,14 +53,13 @@ public class Adapter extends BaseAdapter {
         return view;
     }
 
-    public void addItem(String main_name, String sub_name,String url) {
+    public void addItem(String main_name,String sub_name,String url,String img_data) {
         Data data = new Data();
         Log.e("main",main_name);
         data.setname(main_name);
+        data.image(img_data);
         data.url(url);
         data.setsub_name(sub_name);
         items.add(data);
     }
-
-
 }
