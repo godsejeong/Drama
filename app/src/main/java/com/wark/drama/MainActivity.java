@@ -17,6 +17,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.wark.drama.Adapter.Adapter;
+import com.wark.drama.data.Data;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -143,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, final int position, long id) {
                 final Data data = (Data) adapter.getItem(position);
 
+
                 Intent intent = new Intent(MainActivity.this,Video_connect.class);
                 intent.putExtra("video",data.url());
                 intent.putExtra("name",data.getname());
@@ -175,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
         switch (id){
             case R.id.search:
                 Toast.makeText(getApplicationContext(),"검색하기",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,Search.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);

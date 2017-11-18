@@ -1,4 +1,4 @@
-package com.wark.drama;
+package com.wark.drama.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.wark.drama.data.Data;
+import com.wark.drama.R;
 
 import java.util.ArrayList;
 
