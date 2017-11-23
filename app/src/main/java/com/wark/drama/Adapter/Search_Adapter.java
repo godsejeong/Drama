@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wark.drama.R;
+import com.wark.drama.Search;
 import com.wark.drama.data.Search_data;
 
 import java.util.ArrayList;
@@ -19,12 +20,15 @@ import java.util.ArrayList;
 public class Search_Adapter extends BaseAdapter{
     private LayoutInflater inflater;
     private ArrayList<Search_data> items = new ArrayList<>();
-
+    private int layout;
     TextView textView;
 
-    public Search_Adapter(){
-
+    public Search_Adapter(Context context, ArrayList<Search_data> items, int layout){
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.items = items;
+        this.layout = layout;
     }
+
 
     @Override
     public int getCount() {
@@ -46,7 +50,7 @@ public class Search_Adapter extends BaseAdapter{
         Context context = viewGroup.getContext();
 
         if(view == null){
-            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
             view = inflater.inflate(R.layout.search_items,viewGroup, false);
         }
 
@@ -56,11 +60,4 @@ public class Search_Adapter extends BaseAdapter{
 
         return view;
     }
-
-    public void addItem(String search_text) {
-        Search_data data = new Search_data();
-        data.name(search_text);
-        items.add(data);
-    }
-
 }

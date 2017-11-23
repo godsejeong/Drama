@@ -185,7 +185,8 @@ public class Video_connect extends AppCompatActivity implements View.OnClickList
         switch (id) {
             case R.id.search:
                 Toast.makeText(getApplicationContext(), "검색하기", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(this,Search.class);
+                startActivity(intent);
                 return true;
             case R.id.home:
                 onSupportNavigateUp();

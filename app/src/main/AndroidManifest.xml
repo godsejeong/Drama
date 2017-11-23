@@ -27,6 +27,5 @@
             android:label=""
             android:theme="@style/AppSearch"/>
         <activity android:name=".Popup" android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".Result"/>
     </application>
 </manifest>

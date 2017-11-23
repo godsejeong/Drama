@@ -56,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="5"
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:orientation="vertical">
@@ -76,13 +77,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
 
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:text="LinkB"/>
 
                 <Button
                     android:background="@drawable/shape"
                     android:id="@+id/btn_three"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -92,7 +93,7 @@
                 <Button
                     android:background="@drawable/shape"
                     android:id="@+id/btn_five"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

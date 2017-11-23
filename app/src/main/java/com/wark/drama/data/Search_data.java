@@ -6,6 +6,10 @@ package com.wark.drama.data;
 
 public class Search_data {
     private String name;
+
+    public Search_data(String s) {
+        this.name =s;
+    }
 //    private String date;
 
     public String name(){
