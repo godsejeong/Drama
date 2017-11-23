@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -49,16 +50,19 @@ public class Search extends AppCompatActivity {
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }//스테이터스바 투명하게 하기
 
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.addItem(editText.getText().toString());
-                listView.setAdapter(adapter);
 
                 String url = URLEncoder.encode(editText.getText().toString());
-                Intent intent = new Intent(Search.this,Result.class);
+                Intent intent = new Intent(Search.this,MainActivity.class);
                 intent.putExtra("passurl",address+url);
                 startActivity(intent);
+
+
+                adapter.addItem(editText.getText().toString());
+                listView.setAdapter(adapter);
             }
         });
 

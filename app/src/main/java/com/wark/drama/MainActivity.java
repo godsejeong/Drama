@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         items = new ArrayList<String>();
         listView = (ListView) findViewById(R.id.listview);
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -60,7 +62,12 @@ public class MainActivity extends AppCompatActivity {
         // 툴바를 스테이터스바 밑으로 가게하기
         toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
 
-
+        Intent intent = getIntent();
+           addressdrama = intent.getStringExtra("passurl");
+           if(TextUtils.isEmpty(addressdrama)) {
+               addressdrama = "https://qooqootv.com/category/%EB%93%9C%EB%9D%BC%EB%A7%88/";
+           }
+            Log.e("123456789",addressdrama);
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
