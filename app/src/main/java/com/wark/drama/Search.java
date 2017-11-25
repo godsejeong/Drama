@@ -67,7 +67,6 @@ public class Search extends AppCompatActivity {
                 adapter = new Search_Adapter(Search.this,items,R.layout.search_items);
                 listView.setAdapter(adapter);
                 save();
-                adapter.notifyDataSetChanged();
             }
         });
 
